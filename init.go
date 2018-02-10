@@ -2,9 +2,10 @@ package main
 import (
 "fmt"
 "./MathFunc"
+"reflect"
 )
 
-const beta float32 = 0.85
+const beta float32 = 0.8
 var rnew []float32
 type datarow struct {
 	destination []int
@@ -16,24 +17,40 @@ func addrow(outgoingNodes []int) {
 	data = append(data,s1)
 }
 func initData() {
-	rnew = make([]int ,len(data)) 
-	MathFunc.ArrInit((1-beta)/len(data),rnew)
+	rnew = make([]float32 ,len(data)) 
+	MathFunc.ArrInit((1.0-beta)/float32(len(data)),rnew)
+	//fmt.Println((1.0-beta)/float32(len(data)))
 }
 func calcPageRank() {
-	rold
-	for i := 0; i < len(data); i++ {
-		
-	}
+	var rold []float32
+	isEqual :=reflect.DeepEqual(rnew, rold)
+	//fmt.Println(data)
+	rold = make([]float32 ,len(data))
+	//MathFunc.ArrInit((1.0)/float32(len(data)),rold)
+	for !isEqual {	
+		for i := 0; i < len(data); i++ {
+			for _,k := range data[i].destination{
+				rnew[k] += beta * rold[k] / float32(len(data[i].destination))
+				//fmt.Println(beta * rold[k] / float32(len(data[i].destination)))
+			}
+		}
+		isEqual = reflect.DeepEqual(rnew, rold)
+		fmt.Printf("%g     %g\n",rold, rnew)
+		rold = rnew
+		rnew = make([]float32 ,len(data))
+		MathFunc.ArrInit((1.0-beta)/float32(len(data)),rnew)
+	}	
 }
 
 
 func main() {
-  	var testArr []int
-  	testArr = make([]int,2)
-  	testArr[0] = 1
-  	testArr[1] = 100
-
-  	addrow(testArr)
+  	addrow([]int{1,2})  
+	addrow([]int{0,2})
+  	addrow([]int{1})
+  	//addrow([]int{0,2})
+  	initData()
+  	calcPageRank()
 	fmt.Println("Hello, Bitches")
 	fmt.Println(data)
+	fmt.Println(rnew)
 }
