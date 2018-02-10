@@ -29,8 +29,10 @@ func singleCrawler(url string) {
 						if tmpAttr.Key == "href" {
 							if strings.Index(tmpAttr.Val, url) != -1 {
 								endpoint := strings.Replace(tmpAttr.Val, url, "", -1)
-								fmt.Println(endpoint)
-								linkCount = linkCount + 1
+								if len(endpoint) > 1 {
+									fmt.Println(endpoint)
+									linkCount = linkCount + 1
+								}
 							} else if strings.HasPrefix(tmpAttr.Val, "/") {
 								fmt.Println(tmpAttr.Val)
 								linkCount = linkCount + 1
@@ -45,6 +47,6 @@ func singleCrawler(url string) {
 }
 
 func main() {
-	url := "https://www.bilkent.edu.tr/"
+	url := "http://pileyzmakineleri.blogspot.com.tr/"
 	singleCrawler(url)
 }
