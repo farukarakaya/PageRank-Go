@@ -26,16 +26,16 @@ func calcPageRank() {
 	isEqual :=reflect.DeepEqual(rnew, rold)
 	//fmt.Println(data)
 	rold = make([]float32 ,len(data))
-	//MathFunc.ArrInit((1.0)/float32(len(data)),rold)
+	MathFunc.ArrInit(1/float32(len(data)),rold)
 	for !isEqual {	
 		for i := 0; i < len(data); i++ {
 			for _,k := range data[i].destination{
-				rnew[k] += beta * rold[k] / float32(len(data[i].destination))
+				rnew[k] += beta * rold[i] / float32(len(data[i].destination))
 				//fmt.Println(beta * rold[k] / float32(len(data[i].destination)))
 			}
 		}
 		isEqual = reflect.DeepEqual(rnew, rold)
-		fmt.Printf("%g     %g\n",rold, rnew)
+		fmt.Printf("%.32f     %.32f\n",rold, rnew)
 		rold = rnew
 		rnew = make([]float32 ,len(data))
 		MathFunc.ArrInit((1.0-beta)/float32(len(data)),rnew)
