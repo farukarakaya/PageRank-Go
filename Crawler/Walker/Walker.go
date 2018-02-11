@@ -30,9 +30,10 @@ func PageWalker(url string) []TableRow {
 }
 
 func DestinationSeparator(urls []string, row TableRow) []int {
-	for index, strElem := range urls {
-		if Matcher(strElem) != -1 {
-			row.DESTINATION = append(row.DESTINATION, index)
+	for _, strElem := range urls {
+		ind := Matcher(strElem)
+		if ind != -1 {
+			row.DESTINATION = append(row.DESTINATION, ind)
 		} else {
 			row.DESTINATION = append(row.DESTINATION, len(ResultData.ROWS))
 			var tempRow TableRow
