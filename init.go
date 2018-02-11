@@ -34,9 +34,15 @@ func calcPageRank() {
 	MathFunc.ArrInit(1/float32(len(data)), rold)
 	for !isEqual {
 		for i := 0; i < len(data); i++ {
-			for _, k := range data[i].destination {
-				rnew[k] += beta * rold[i] / float32(len(data[i].destination))
-			}
+			if(len(data[i].destination) > 0) {
+				for _, k := range data[i].destination {
+					rnew[k] += beta * rold[i] / float32(len(data[i].destination))
+				}
+			} else {
+				for t := 0; t < len(data); t++{
+					rnew[t] +=  rold[i] / float32(len(data))
+				}	
+			}	
 		}
 		isEqual = MathFunc.CompareWithError(rnew, rold, 0.0000001)
 		if isEqual {
