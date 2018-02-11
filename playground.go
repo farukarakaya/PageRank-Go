@@ -1,17 +1,14 @@
 package main
 
-import "./Crawler/Walker"
-import "fmt"
+import (
+	"./PageRank"
+	"./Wrapper"
+	"fmt"
+)
 
 func main() {
-	url := "http://pileyzmakineleri.blogspot.com.tr/"
-	printWalker(Walker.PageWalker(url), url)
-}
-
-func printWalker(allRes []Walker.TableRow, url string) {
-	for elemIndex := 0; elemIndex < len(allRes); elemIndex++ {
-		fmt.Println("Path: ", allRes[elemIndex].URL, " Going Destinations: ", allRes[elemIndex].DESTINATION)
-	}
-
-	fmt.Println("Total count: ", len(allRes))
+	url := "http://ciceklab.cs.bilkent.edu.tr/ercumentcicek/"
+	destinations, urls := Wrapper.Get2DArray(url)
+	//fmt.Println("DEST SIZE ", len(destinations), " URL SIZE", len(urls))
+	fmt.Println(PageRank.GetPageRankJson(urls, destinations))
 }
