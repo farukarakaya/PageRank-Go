@@ -1,65 +1,13 @@
 package main
 
 import (
-	"./MathFunc"
 	"fmt"
+	"./PageRank"
 )
-
-const beta float32 = 0.8
-
-var rnew []float32
-
-type datarow struct {
-	destination []int
-}
-
-var data []datarow
-
-func addrow(outgoingNodes []int) {
-	s1 := datarow{destination: outgoingNodes}
-	data = append(data, s1)
-}
-
-func initData() {
-	rnew = make([]float32, len(data))
-	MathFunc.ArrInit((1.0-beta)/float32(len(data)), rnew)
-	//fmt.Println((1.0-beta)/float32(len(data)))
-}
-
-func calcPageRank() {
-	var rold []float32
-	isEqual := false
-	//fmt.Println(data)
-	rold = make([]float32, len(data))
-	MathFunc.ArrInit(1/float32(len(data)), rold)
-	for !isEqual {
-		for i := 0; i < len(data); i++ {
-			if(len(data[i].destination) > 0) {
-				for _, k := range data[i].destination {
-					rnew[k] += beta * rold[i] / float32(len(data[i].destination))
-				}
-			} else {
-				for t := 0; t < len(data); t++{
-					rnew[t] +=  rold[i] / float32(len(data))
-				}	
-			}	
-		}
-		isEqual = MathFunc.CompareWithError(rnew, rold, 0.0000001)
-		if isEqual {
-			break
-		}
-		rold = rnew
-		rnew = make([]float32, len(data))
-		MathFunc.ArrInit((1.0-beta)/float32(len(data)), rnew)
-	}
-}
-
 func main() {
-	addrow([]int{0, 1})
-	addrow([]int{0, 2})
-	addrow([]int{1})
-
-	initData()
-	calcPageRank()
-	fmt.Println(rnew)
+	adrs := []string{"www.1.com","www.2.com","www.3.com"}
+	dests := [][]int{{0,1},{0,2},{1}}
+	
+	fmt.Println(PageRank.GetPageRankJson(adrs,dests))
+	
 }
