@@ -1,0 +1,13 @@
+hash: 7c10dfa6257ce2aeee3b71057ccdc986719ef8631a5b6ef845bfe5e8e861c814
+updated: 2018-02-13T01:58:05.901454+03:00
+imports:
+- name: github.com/gorilla/context
+  version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
+- name: github.com/gorilla/mux
+  version: c0091a029979286890368b4c7b301261e448e242
+- name: golang.org/x/net
+  version: f5dfe339be1d06f81b22525fe34671ee7d2c8904
+  subpackages:
+  - html
+  - html/atom
+testImports: []
