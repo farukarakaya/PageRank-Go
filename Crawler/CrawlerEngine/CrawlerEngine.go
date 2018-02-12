@@ -2,7 +2,7 @@ package CrawlerEngine
 
 import "net/http"
 import "strings"
-import "./vendor/golang.org/x/net/html"
+import "golang.org/x/net/html"
 
 func SingleCrawler(url string, staticURL string) []string {
 	var allURL []string

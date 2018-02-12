@@ -3,9 +3,9 @@ package Server
 import (
 	"../PageRank"
 	"../Wrapper"
-	"./vendor/github.com/gorilla/mux"
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	//"io/ioutil"
 	"net/http"
 )
