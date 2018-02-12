@@ -1,6 +1,2 @@
 package: .
 import:
-- package: github.com/gorilla/mux
-- package: golang.org/x/net
-  subpackages:
-  - html
