@@ -1,8 +1,8 @@
 package Server
 
 import (
-	"../PageRank"
-	"../Wrapper"
+	"PageRank-Go/PageRank"
+	"PageRank-Go/Wrapper"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"

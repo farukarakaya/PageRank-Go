@@ -1,6 +1,6 @@
 package Wrapper
 
-import "../Crawler/Walker"
+import "PageRank-Go/Crawler/Walker"
 
 var Destinations [][]int
 var URL_Paths []string

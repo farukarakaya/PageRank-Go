@@ -1,6 +1,6 @@
 package Walker
 
-import "../CrawlerEngine"
+import "PageRank-Go/Crawler/CrawlerEngine"
 
 type TableRow struct {
 	DESTINATION []int

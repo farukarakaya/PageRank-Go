@@ -2,7 +2,7 @@ package main
 
 import (
 	//"fmt"
-	"./Server"
+	"PageRank-Go/Server"
 )
 func main() {
 	//adrs := []string{"www.1.com","www.2.com","www.3.com"}

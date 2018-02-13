@@ -1,7 +1,7 @@
 package PageRank
 
 import (
-	"./MathFunc"
+	"PageRank-Go/PageRank/MathFunc"
 	"encoding/json"
 	//"github.com/json-iterator/go"
 )

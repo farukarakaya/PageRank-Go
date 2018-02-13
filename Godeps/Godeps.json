@@ -1,0 +1,18 @@
+{
+	"ImportPath": ".",
+	"GoVersion": "go1.9",
+	"GodepVersion": "v80",
+	"Packages": [
+		"golang.org/x/net/html"
+	],
+	"Deps": [
+		{
+			"ImportPath": "golang.org/x/net/html",
+			"Rev": "f5dfe339be1d06f81b22525fe34671ee7d2c8904"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html/atom",
+			"Rev": "f5dfe339be1d06f81b22525fe34671ee7d2c8904"
+		}
+	]
+}
