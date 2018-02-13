@@ -56,5 +56,7 @@ func ProblemHandler(url string) string {
 func ServeJson() {
 	router := mux.NewRouter()
 	router.HandleFunc("/api/getPageRank", serveRest).Methods("POST", "OPTIONS")
-	http.ListenAndServe(":"+os.Getenv("PORT"), router)
+	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
+	http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(originsOk, headersOk)(router))
 }
