@@ -7,7 +7,23 @@
 			"revision": ""
 		},
 		{
+			"path": "PageRank-Go/Crawler/CrawlerEngine",
+			"revision": ""
+		},
+		{
 			"path": "PageRank-Go/Crawler/Walker",
+			"revision": ""
+		},
+		{
+			"path": "PageRank-Go/PageRank",
+			"revision": ""
+		},
+		{
+			"path": "PageRank-Go/Server",
+			"revision": ""
+		},
+		{
+			"path": "PageRank-Go/Wrapper",
 			"revision": ""
 		},
 		{
