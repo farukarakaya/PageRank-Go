@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	//"io/ioutil"
+	"os"
 	"net/http"
 )
 
@@ -49,5 +49,5 @@ func ProblemHandler(url string) string {
 func ServeJson() {
 	router := mux.NewRouter()
 	router.HandleFunc("/api/getPageRank", serveRest).Methods("POST")
-	http.ListenAndServe(":8080", router)
+	http.ListenAndServe(":"+os.Getenv("PORT"), router)
 }
