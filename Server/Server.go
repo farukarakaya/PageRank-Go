@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	"os"
 	"net/http"
+	"os"
 )
 
 type REQ_HANDLER struct {
@@ -16,6 +16,7 @@ type REQ_HANDLER struct {
 
 func serveRest(w http.ResponseWriter, r *http.Request) {
 	var reqFromUser REQ_HANDLER
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	err := json.NewDecoder(r.Body).Decode(&reqFromUser)
 
 	if RequestChecks(reqFromUser, err) {
