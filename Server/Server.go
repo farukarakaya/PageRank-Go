@@ -17,6 +17,8 @@ type REQ_HANDLER struct {
 func serveRest(w http.ResponseWriter, r *http.Request) {
 	var reqFromUser REQ_HANDLER
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type,access-control-allow-origin, access-control-allow-headers")
+
 	err := json.NewDecoder(r.Body).Decode(&reqFromUser)
 
 	if RequestChecks(reqFromUser, err) {
@@ -49,6 +51,6 @@ func ProblemHandler(url string) string {
 
 func ServeJson() {
 	router := mux.NewRouter()
-	router.HandleFunc("/api/getPageRank", serveRest).Methods("POST")
+	router.HandleFunc("/api/getPageRank", serveRest).Methods("POST", "OPTIONS")
 	http.ListenAndServe(":"+os.Getenv("PORT"), router)
 }
