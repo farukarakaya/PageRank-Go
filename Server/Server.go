@@ -52,7 +52,7 @@ func RequestChecks(req REQ_HANDLER, err error) bool {
 
 func ProblemHandler(url string) {
 	destinations, urls := Wrapper.Get2DArray(url)
-	str := PageRank.GetPageRankJson(urls, destinations)
+
 	if s.HasPrefix(url, "https://") {
 		url = s.Split(url, "https://")[1]
 	} else if s.HasPrefix(url, "http://") {
@@ -61,11 +61,20 @@ func ProblemHandler(url string) {
 	if s.HasSuffix(url, "/") {
 		url = s.Split(url, "/")[0]
 	}
-	// write the whole body at once
-	err := ioutil.WriteFile(s.Join([]string{url, ".txt"}, ""), []byte(str), 0644)
+
+	file, err := os.Open("file.go") // For read access.
 	if err != nil {
-		panic(err)
+		str := PageRank.GetPageRankJson(urls, destinations)
+
+		// write the whole body at once
+		err := ioutil.WriteFile(s.Join([]string{url, ".txt"}, ""), []byte(str), 0644)
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		return
 	}
+
 }
 func getStatus(w http.ResponseWriter, r *http.Request) {
 	var reqFromUser REQ_HANDLER
