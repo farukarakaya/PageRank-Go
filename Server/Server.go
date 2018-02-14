@@ -52,7 +52,11 @@ func RequestChecks(req REQ_HANDLER, err error) bool {
 
 func ProblemHandler(url string) {
 	destinations, urls := Wrapper.Get2DArray(url)
+<<<<<<< HEAD
 
+=======
+	//fmt.Println(urls)
+>>>>>>> 0bf46037cee492bdf5888c23a915569be604568d
 	if s.HasPrefix(url, "https://") {
 		url = s.Split(url, "https://")[1]
 	} else if s.HasPrefix(url, "http://") {
@@ -122,6 +126,11 @@ func ServeJson() {
 	router := mux.NewRouter()
 	router.HandleFunc("/api/getPageRank", serveRest).Methods("POST", "OPTIONS")
 	router.HandleFunc("/api/getStatus", getStatus).Methods("POST", "OPTIONS")
+<<<<<<< HEAD
 	http.ListenAndServe(":"+os.Getenv("PORT"), router)
 	//http.ListenAndServe(":8080", router)
+=======
+	//http.ListenAndServe(":"+os.Getenv("PORT"), router)
+	http.ListenAndServe(":8080", router)
+>>>>>>> 0bf46037cee492bdf5888c23a915569be604568d
 }
