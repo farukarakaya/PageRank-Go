@@ -30,6 +30,7 @@ func serveRest(w http.ResponseWriter, r *http.Request) {
 	if RequestChecks(reqFromUser, err) {
 		fmt.Println(err, " URL: ", reqFromUser.URL)
 		go ProblemHandler(reqFromUser.URL)
+		w.WriteHeader(200)
 		return
 	} else {
 		w.WriteHeader(404)
@@ -54,7 +55,7 @@ func ProblemHandler(url string) {
 	str := PageRank.GetPageRankJson(urls, destinations)
 	if s.HasPrefix(url, "https://") {
 		url = s.Split(url, "https://")[1]
-	} else {
+	} else if s.HasPrefix(url, "http://") {
 		url = s.Split(url, "http://")[1]
 	}
 	if s.HasSuffix(url, "/") {
@@ -90,12 +91,14 @@ func getStatus(w http.ResponseWriter, r *http.Request) {
 		}
 		file, err := ioutil.ReadFile(s.Join([]string{requrl, ".txt"}, ""))
 		if err != nil {
+			w.WriteHeader(200)
 			w.Write([]byte(`{"message": "No file"}`))
 			return
 		} else {
 			textNum := []byte(`{ "message":"Found", "content":[`) //file"] }"}
 			textNum = append(textNum, file...)
 			textNum = append(textNum, `]}`...)
+			w.WriteHeader(200)
 			w.Write([]byte(textNum))
 			return
 		}
