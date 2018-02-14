@@ -9,7 +9,6 @@ import (
 const beta float32 = 0.8
 
 //var json = jsoniter.ConfigCompatibleWithStandardLibrary
-var rnew []float32
 
 //var jsonGraph []byte
 type Node struct {
@@ -29,25 +28,16 @@ type Datarow struct {
 	adress      string
 	destination []int
 }
-
-var data []Datarow
-
-func addrow(adress string, outgoingNodes []int) {
-	s1 := Datarow{adress, outgoingNodes}
-	data = append(data, s1)
-}
-
-func initData() {
-	rnew = make([]float32, len(data))
+func initData(data []Datarow, rnew []float32) {
+	//rnew = make([]float32, len(data))
 	MathFunc.ArrInit((1.0-beta)/float32(len(data)), rnew)
 	//fmt.Println((1.0-beta)/float32(len(data)))
 }
 
-func calcPageRank() {
-	var rold []float32
+func calcPageRank(data []Datarow, rnew []float32) {
 	isEqual := false
 	//fmt.Println(data)
-	rold = make([]float32, len(data))
+	rold := make([]float32, len(data))
 	MathFunc.ArrInit(1/float32(len(data)), rold)
 	for !isEqual {
 		for i := 0; i < len(data); i++ {
@@ -66,12 +56,13 @@ func calcPageRank() {
 			break
 		}
 		rold = rnew
+		rnew = nil
 		rnew = make([]float32, len(data))
 		MathFunc.ArrInit((1.0-beta)/float32(len(data)), rnew)
 	}
 }
 
-func serveJsonData() string {
+func serveJsonData(data []Datarow, rnew []float32) string {
 	var nodes []Node
 	var edges []Edge
 	for i := 0; i < len(data); i++ {
@@ -82,15 +73,16 @@ func serveJsonData() string {
 	}
 	graph := Graph{nodes, edges}
 	jsong, _ := json.Marshal(graph)
-
 	return string(jsong)
 }
 
 func GetPageRankJson(adrs []string, dests [][]int) string {
+	var data []Datarow
+	rnew := make([]float32, len(adrs))
 	for i := 0; i < len(adrs); i++ {
 		data = append(data, Datarow{adrs[i], dests[i]})
 	}
-	initData()
-	calcPageRank()
-	return serveJsonData()
+	initData(data,rnew)
+	calcPageRank(data,rnew)
+	return serveJsonData(data,rnew)
 }
