@@ -62,7 +62,7 @@ func ProblemHandler(url string) {
 		url = s.Split(url, "/")[0]
 	}
 
-	file, err := os.Open("file.go") // For read access.
+	_, err := os.Open(s.Join([]string{url, ".txt"}, "")) // For read access.
 	if err != nil {
 		str := PageRank.GetPageRankJson(urls, destinations)
 
