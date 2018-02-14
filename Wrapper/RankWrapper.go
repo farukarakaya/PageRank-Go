@@ -2,10 +2,11 @@ package Wrapper
 
 import "PageRank-Go/Crawler/Walker"
 
-var Destinations [][]int
-var URL_Paths []string
+
 
 func Get2DArray(url string) ([][]int, []string) {
+	var Destinations [][]int
+	var URL_Paths []string	
 	allRes := Walker.PageWalker(url)
 	for elemIndex := 0; elemIndex < len(allRes); elemIndex++ {
 		Destinations = append(Destinations, allRes[elemIndex].DESTINATION)
