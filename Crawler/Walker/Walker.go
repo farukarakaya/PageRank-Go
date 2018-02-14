@@ -11,17 +11,18 @@ type WalkerData struct {
 	ROWS []TableRow
 }
 
-var ResultData WalkerData
+
 
 func PageWalker(url string) []TableRow {
+	var ResultData WalkerData
 	var firstRow TableRow
 	firstRow.URL = url
 	ResultData.ROWS = append(ResultData.ROWS, firstRow)
-	firstRow.DESTINATION = DestinationSeparator(CrawlerEngine.SingleCrawler(url, url), firstRow)
+	firstRow.DESTINATION = DestinationSeparator(CrawlerEngine.SingleCrawler(url, url), firstRow, ResultData)
 
 	for index, rowElem := range ResultData.ROWS {
 		if index != 0 {
-			rowElem.DESTINATION = DestinationSeparator(CrawlerEngine.SingleCrawler(url+rowElem.URL, url), rowElem)
+			rowElem.DESTINATION = DestinationSeparator(CrawlerEngine.SingleCrawler(url+rowElem.URL, url), rowElem, ResultData)
 			ResultData.ROWS[index] = rowElem
 		}
 	}
@@ -29,9 +30,9 @@ func PageWalker(url string) []TableRow {
 	return ResultData.ROWS
 }
 
-func DestinationSeparator(urls []string, row TableRow) []int {
+func DestinationSeparator(urls []string, row TableRow, ResultData WalkerData) []int {
 	for _, strElem := range urls {
-		ind := Matcher(strElem)
+		ind := Matcher(strElem, ResultData)
 		if ind != -1 {
 			row.DESTINATION = append(row.DESTINATION, ind)
 		} else {
@@ -45,7 +46,7 @@ func DestinationSeparator(urls []string, row TableRow) []int {
 	return row.DESTINATION
 }
 
-func Matcher(url string) int {
+func Matcher(url string, ResultData WalkerData) int {
 	for index, rowData := range ResultData.ROWS {
 		if url == rowData.URL {
 			return index
